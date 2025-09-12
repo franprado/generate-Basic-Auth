@@ -15,8 +15,9 @@ func main() {
 		fmt.Println("1. Generar Basic Auth")
 		fmt.Println("2. Decifrar Basic Auth")
 		fmt.Println("3. Decifrar Base64 normal")
+		fmt.Println("4. Cifrar texto en Base64")
 		fmt.Println("0. Salir")
-		fmt.Print("Opción (0/1/2/3): ")
+		fmt.Print("Opción (0/1/2/3/4): ")
 
 		opcionStr, err := reader.ReadString('\n')
 		if err != nil {
@@ -32,11 +33,13 @@ func main() {
 			opcion = 2
 		} else if opcionStr == "3" {
 			opcion = 3
+		} else if opcionStr == "4" {
+			opcion = 4
 		} else if opcionStr == "0" {
 			fmt.Println("¡Hasta luego!")
 			break
 		} else {
-			fmt.Println("Opción inválida. Por favor ingresa 0, 1, 2 o 3.")
+			fmt.Println("Opción inválida. Por favor ingresa 0, 1, 2, 3 o 4.")
 			continue
 		}
 
@@ -110,6 +113,22 @@ func main() {
 
 			fmt.Println("\n--- Resultado ---")
 			fmt.Printf("Cadena original: %s\n", string(decoded))
+			fmt.Println("-----------------")
+		case 4:
+			// Cifrar texto en Base64
+			fmt.Print("Ingresa el texto a cifrar en Base64: ")
+			input, err := reader.ReadString('\n')
+			if err != nil {
+				fmt.Println("Error al leer el texto:", err)
+				continue
+			}
+			input = strings.TrimSpace(input)
+
+			encoded := base64.StdEncoding.EncodeToString([]byte(input))
+
+			fmt.Println("\n--- Resultado ---")
+			fmt.Printf("Texto original: %s\n", input)
+			fmt.Printf("Texto cifrado en Base64: %s\n", encoded)
 			fmt.Println("-----------------")
 		}
 	}
